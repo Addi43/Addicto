@@ -1,6 +1,7 @@
 # Addicto
 
-GAME MANAGER:
+DRAG AND DROP CODE:
+
 
 using System.Collections;
 using System.Collections.Generic;
