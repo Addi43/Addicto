@@ -1,0 +1,276 @@
+
+
+GAME MANAGER CODE:
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
+public class Game_manager: MonoBehaviour {
+	public AudioSource audiosource;
+	public AudioClip[] audioclip;
+	public GameObject you_won;
+	public GameObject game_over;
+	public Text questions;
+	public static bool big_transforms;
+	public static bool small_transforms;
+	//public static int i;
+	public int score;
+	public Text score_text;
+	public GameObject big_truck;
+	public GameObject small_truck;
+	// Use this for initialization
+
+	public SpriteRenderer c_image;
+	public SpriteRenderer w_image;
+	public SpriteRenderer  ww_image;
+
+	public Sprite[] c_sprites;
+	public Sprite[] w_sprites;
+	public Sprite[] ww_sprites;
+
+
+	void Start () {
+
+		big_transforms = true;
+		small_transforms = true;
+		questions.text = "  ".ToString ();
+		game_over.gameObject.SetActive (false);
+		you_won.gameObject.SetActive (false);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+		// Poner el número de preguntas que se requieran y borrar las demás 
+
+
+		if (big_transforms == true) {
+			big_truck.transform.Translate (1.2f * Time.deltaTime, 0, 0);
+
+		}
+		if (small_transforms == true) {
+			small_truck.transform.Translate (-1.2f * Time.deltaTime, 0, 0);
+		} 
+		if (big_truck.transform.position.x >= -4.5f) {
+			big_transforms = false;
+			if (mouse_drag_drop.i == 1) {
+				questions.text = " ¿Cuál es la solución si se te poncha una llanta? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 2) {
+				questions.text = " ¿Cuál es la solución para las múltiples ponchaduras al trabajar en una mina subterránea? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 3) {
+				questions.text = " ¿Qué haces si tu cliente llama porque su llanta está perdiendo aire? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 4) {
+				questions.text = " ¿Cada cuánto se recomienda la revisión periódica de temperaturas de las llantas? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 5) {
+				questions.text = " ¿Cada cuánto se recomienda revisar los rines? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 6) {
+				questions.text = " ¿Qué análisis determina el compuesto de hule a recomendar en equipos de acarreo en una mina? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 7) {
+				questions.text = " ¿Qué solución ofrecerías para el servicio integral de las llantas de una flota completa? ".ToString ();
+			} 
+			else if (mouse_drag_drop.i == 8) { 
+				questions.text = " ¿Qué servicios preventivos recomendarías al cliente para una llanta? ".ToString ();
+			
+			}
+			/*else if (mouse_drag_drop.i == 9) {
+				questions.text = " Ostrich is the largest living bird on Earth? ".ToString ();
+			}
+			else if (mouse_drag_drop.i == 10) {
+				questions.text = " capybara is the world's largest rodent? ".ToString ();
+			}*/
+				
+
+
+
+
+		}
+
+
+		if (small_truck.transform.position.x <= 6.2f) {
+			small_transforms = false;
+		}
+		//big_truck.transform.position = new Vector2 (-0.3f, transform.position.y);
+		//small_truck.transform.position = new Vector2 (-0.3f, transform.position.y);
+
+
+
+		if (score <= -1) {
+			game_over.gameObject.SetActive (true);
+		}
+
+		if(mouse_drag_drop.i >= 8) //Para poner el límite de preguntas, debe ser una más de la que se requieren
+		{
+			you_won.gameObject.SetActive(true);
+		}
+	}
+
+//	public void OnTriggerEnter2D(Collider2D other) 
+//	{
+//		if (other.gameObject.tag == "true") {
+//			Debug.Log ("hello");
+//		}
+//
+//	}
+
+	public void retry()
+	{
+		SceneManager.LoadScene ("Video"); //(0) cambié cero por video
+		audiosource.clip = audioclip[2];
+		audiosource.Play ();
+	}
+
+	public void score_add()
+	{
+		score += 10;
+		score_text.text = "Score: " + score.ToString ();
+
+
+		// Poner el número de preguntas que se requieran y borrar las demás 
+
+
+		if (mouse_drag_drop.i == 1) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [0];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [0];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [0];
+		}
+		if (mouse_drag_drop.i == 2) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [1];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [1];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [1];
+
+		}
+		if (mouse_drag_drop.i == 3) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [2];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [2];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [2];
+		}
+		if (mouse_drag_drop.i == 4) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [3];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [3];
+			ww_image.GetComponent<SpriteRenderer>().sprite= ww_sprites [3];
+		}
+
+		if (mouse_drag_drop.i == 5) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [4];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [4];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [4];
+		}
+
+		if (mouse_drag_drop.i == 6) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [5];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [5];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [5];
+		}
+
+		if (mouse_drag_drop.i == 7) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [6];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [6];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [6];
+		}
+		if (mouse_drag_drop.i == 8) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [7];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [7];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [7];
+		}
+		/*
+		if (mouse_drag_drop.i == 9) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [8];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [8];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [8];
+		}
+
+		if (mouse_drag_drop.i == 10) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [9];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [9];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [9];
+		}
+
+
+	}*/
+	}
+	public void score_minus()
+	{
+		score -= 10;
+		score_text.text = "Score: " + score.ToString ();
+
+		// Poner el número de preguntas que se requieran y borrar las demás 
+
+
+		if (mouse_drag_drop.i == 1) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [0];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [0];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [0];
+		}
+		if (mouse_drag_drop.i == 2) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [1];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [1];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [1];
+
+		}
+		if (mouse_drag_drop.i == 3) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [2];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [2];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [2];
+		}
+		if (mouse_drag_drop.i == 4) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [3];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [3];
+			ww_image.GetComponent<SpriteRenderer>().sprite= ww_sprites [3];
+		}
+
+		if (mouse_drag_drop.i == 5) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [4];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [4];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [4];
+		}
+
+		if (mouse_drag_drop.i == 6) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [5];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [5];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [5];
+		}
+
+		if (mouse_drag_drop.i == 7) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [6];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [6];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [6];
+		}
+
+		
+		if (mouse_drag_drop.i == 8) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [7];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [7];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [7];
+		}
+
+			/*
+		if (mouse_drag_drop.i == 9) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [8];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [8];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [8];
+		}
+
+		if (mouse_drag_drop.i == 10) {
+			c_image.GetComponent<SpriteRenderer>().sprite = c_sprites [9];
+			w_image.GetComponent<SpriteRenderer>().sprite = w_sprites [9];
+			ww_image.GetComponent<SpriteRenderer>().sprite = ww_sprites [9];
+		}*/
+
+
+	}
+		}
+
+
+
+
+	
